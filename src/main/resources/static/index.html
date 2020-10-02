@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Przykładowa strona</title>
+</head>
+<body>
+    <h1>Hello World</h1>
+    <form method="post" action="/students/create-student">
+        <label>Imię:
+            <input type="text" name="firstName" />
+        </label>
+        <label>Nazwisko:
+            <input type="text" name="lastName" />
+        </label>
+        <input type="submit" value="Dodaj studenta" />
+    </form>
+    <br />
+    <form method="post" action="/students/add-grade">
+        <label>
+            Ocena:
+            <input type="text" name="grade" />
+        </label>
+        <label>
+            Dla studenta:
+            <input type="number" name="studentId" />
+        </label>
+        <input type="submit" value="Dodaj ocenę" />
+    </form>
+</body>
+</html>
