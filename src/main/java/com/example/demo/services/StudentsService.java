@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.controllers.StudentsController;
 import com.example.demo.model.entities.Grade;
 import com.example.demo.model.entities.Student;
 import com.example.demo.model.repositories.GradeRepository;
@@ -34,16 +35,28 @@ public class StudentsService {
         return this.studentsRepository.findById(id);
     }
 
-    public void addGradeToStudent(Long id, String grade) {
+    public void addGradeToStudent(StudentsController.NewGradeDto grade) {
         try {
-            Student student = studentsRepository.findById(id).orElse(null);
+            Student student = studentsRepository.findById(grade.getStudentId()).orElse(null);
             List<Grade> gradeList = student.getGrades();
-            Grade grade1 = new Grade(grade);
+            Grade grade1 = new Grade(grade.getGrade());
+            grade1.setSubject(grade.getSubject());
             gradeList.add(grade1);
             student.setGrades(gradeList);
             this.gradeRepository.save(grade1);
             this.studentsRepository.save(student);
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void updateStudentGrade(StudentsController.GradeToEditDto newGrade) {
+        try {
+            Grade grade = gradeRepository.findById(newGrade.getGradeId()).orElse(null);
+            grade.setSubject(newGrade.getSubject() == null ? grade.getSubject() : newGrade.getSubject());
+            grade.setGrade(newGrade.getGrade() == null ? grade.getGrade() : newGrade.getGrade());
+            this.gradeRepository.save(grade);
+        } catch (NullPointerException e) {
             System.out.println(e);
         }
     }

@@ -2,6 +2,10 @@ package com.example.demo.controllers;
 
 import com.example.demo.model.entities.Student;
 import com.example.demo.services.StudentsService;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +36,39 @@ public class StudentsController {
         this.studentsService.createNewUser(firstName, lastName);
     }
 
-    @PostMapping("/add-grade")
-    public void addNewGradeToStudent(@RequestParam(value = "grade") String grade, @RequestParam(value = "studentId") Long id) {
-        this.studentsService.addGradeToStudent(id, grade);
+    @PostMapping(value = "/add-grade")
+    public void addNewGradeToStudent(
+            @RequestParam(value = "grade") String grade,
+            @RequestParam(value = "studentId") Long studentId,
+            @RequestParam(value = "subject") String subject) {
+        this.studentsService.addGradeToStudent(new NewGradeDto(grade, studentId, subject));
+    }
+
+    @PostMapping(value = "/update-grade")
+    public void updateStudentGrade(
+            @RequestParam(value = "grade") String grade,
+            @RequestParam(value = "gradeId") Long gradeId,
+            @RequestParam(value = "subject") String subject) {
+        this.studentsService.updateStudentGrade(new GradeToEditDto(gradeId, grade, subject));
+    }
+
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    @Setter
+    public static class NewGradeDto {
+        String grade;
+        Long studentId;
+        String subject;
+    }
+
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    @Setter
+    public static class GradeToEditDto {
+        Long gradeId;
+        String grade;
+        String subject;
     }
 }

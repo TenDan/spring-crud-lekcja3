@@ -16,6 +16,7 @@
         <input type="submit" value="Dodaj studenta" />
     </form>
     <br />
+    <p>Dodaj nowa ocene</p>
     <form method="post" action="/students/add-grade">
         <label>
             Ocena:
@@ -24,6 +25,27 @@
         <label>
             Dla studenta:
             <input type="number" name="studentId" />
+        </label>
+        <label>
+            Przedmiot:
+            <input type="text" name="subject" />
+        </label>
+        <input type="submit" value="Dodaj ocenę" />
+    </form>
+    <br />
+    <p>Zaktualizuj ocene</p>
+    <form method="post" action="/students/update-grade">
+        <label>
+            Ocena:
+            <input type="text" name="grade" />
+        </label>
+        <label>
+            ID oceny:
+            <input type="number" name="gradeId" />
+        </label>
+        <label>
+            Przedmiot:
+            <input type="text" name="subject" />
         </label>
         <input type="submit" value="Dodaj ocenę" />
     </form>
